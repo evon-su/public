@@ -702,11 +702,6 @@ ArrowLine ArrowCorner::fitLineByRansac(std::vector<Eigen::Vector2f>::const_itera
     return output;
 }
 
-float ArrowCorner::wAvg(float inputValue, float preAvg, float r)
-{
-    return preAvg * r + inputValue * (1.f - r);
-}
-
 float ArrowCorner::ptToLineDistance(const Eigen::Vector2f& pt, const Coef& lineCoef)
 {
     float v = (pt.y() - lineCoef[1]*pt.x() - lineCoef[0]);
