@@ -78,8 +78,6 @@ private:
     std::vector<cv::Point2f> eigen2cvPoint(std::vector<Eigen::Vector2f>& input);
 
     // Members
-    // PinHoleCamera m_pinhole;
-    // Eigen::Matrix3f m_PerspectiveM;
     float m_sigma = 0.08;           // It Should Depend On Arrow Size 
     float m_movingAvg_k = 5;
     float m_meanArrowWidth_line = 0.938;
