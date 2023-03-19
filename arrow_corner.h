@@ -42,35 +42,27 @@ private:
     // Algorithm
     ArrowInfo findCorners(std::vector<Eigen::Vector2f>& arrow);
     std::vector<ArrowInfo> findCorners(std::vector<std::vector<Eigen::Vector2f>>& arrows);
-    
     std::vector<ArrowLine> linesByRansac(const std::vector<Eigen::Vector2f>& points, int iterations, int randNumbers, float sigma, int fitOrder);
     std::vector<ArrowLine> ptLinesByRansac(const std::vector<Eigen::Vector2f>& points, int fixPt, int iterations, int randNumbers, float sigma, int fitOrder, float arrowLen);
     ArrowLine fitLineByRansac(std::vector<Eigen::Vector2f>::const_iterator start, std::vector<Eigen::Vector2f>::const_iterator end, int iterations, int randNumbers, float sigma, int fitOrder);
     std::vector<int> ransacToTerminal(const std::vector<Eigen::Vector2f>& points);
     std::vector<int> terminalToSides(const std::vector<Eigen::Vector2f>& points, int terminal1, int terminal2);
     ArrowType findArrowType(std::vector<Eigen::Vector2f>& points, int T1, int T2, int S1, int S2);
-
-    std::vector<int> pointsToFourPts(const std::vector<Eigen::Vector2f>& points);
     std::vector<Eigen::Vector2f> terminalToCorners(int terminal1, int terminal2, const std::vector<Eigen::Vector2f>& points);
-    std::vector<float> half2AreasByPolygon(const std::vector<Eigen::Vector2f>& points);
 
     // Preprocessing
     std::vector<std::vector<Eigen::Vector2f>> arrowsTo3D(const std::vector<std::vector<Eigen::Vector2f>>& arrows2D);
     std::vector<Eigen::Vector2f> pointsToAvg(const std::vector<Eigen::Vector2f>& points, float k1);
 
-
     // Transform
     ArrowInfo linesToInfo(const std::vector<ArrowLine>& lines, int lineNum);
     
-
     // Util
-    float wAvg(float inputValue, float preAvg, float r);
     float ptToLineDistance(const Eigen::Vector2f& pt, const Coef& lineCoef);
     Eigen::Vector2f linesToInterscep(const Coef& line1, const Coef& line2);
     float pointsToDist(const Eigen::Vector2f pt1, const Eigen::Vector2f pt2);
     float areaByPolygon(const std::vector<Eigen::Vector2f>& polygon);
     Point pointsToCenter(Eigen::Vector2f pt1, Eigen::Vector2f pt2);
-
     float coefToTheta(Coef coef1, Coef coef2);
     Coef periodsToCoef(int pos1, int pos2, const std::vector<Eigen::Vector2f>& points);
     std::vector<Eigen::Vector2f> periodsToPoints(int pos1, int pos2, const std::vector<Eigen::Vector2f>& points);
@@ -85,13 +77,6 @@ private:
     cv::Point2f pt3_inv_cv(const cv::Point2f& inputPt);
     std::vector<cv::Point2f> eigen2cvPoint(std::vector<Eigen::Vector2f>& input);
 
-
-
-
-
-
-
-
     // Members
     // PinHoleCamera m_pinhole;
     // Eigen::Matrix3f m_PerspectiveM;
@@ -101,11 +86,9 @@ private:
     float m_arrow_orth_theta_thres = 1.2;
 
 
-
 public:
     // Constructor
     ArrowCorner() = default; 
-    // ArrowCorner(const PinHoleCamera& pinhole, const Eigen::Matrix3f& PerspectiveM);
     ArrowCorner(const ArrowCorner& other);
     ~ArrowCorner() {};
     ArrowCorner& operator=(const ArrowCorner& other);
