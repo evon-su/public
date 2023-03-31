@@ -62,7 +62,6 @@ std::vector<ArrowInfo> ArrowCorner::process(std::vector<std::vector<Eigen::Vecto
 ArrowInfo ArrowCorner::findCorners(std::vector<Eigen::Vector2f>& arrow)
 {
     ArrowInfo info;
-    // auto arrowAvg = pointsToAvg(arrow, m_movingAvg_k);
     auto arrowAvg = arrow;
     auto terminals = ransacToTerminal(arrowAvg);
     auto sides = terminalToSides(arrowAvg, terminals[0], terminals[1]);
@@ -92,42 +91,6 @@ std::vector<ArrowInfo> ArrowCorner::findCorners(std::vector<std::vector<Eigen::V
     }
 
     return infos;
-}
-
-std::vector<Eigen::Vector2f> ArrowCorner::pointsToAvg(const std::vector<Eigen::Vector2f>& points, float k1)
-{   
-    float r1 = (k1 - 1) / k1;
-
-    std::vector<Eigen::Vector2f> avgPoints1;
-
-    avgPoints1.push_back(points[0]);
-
-    float avgX1 = points[0].x();
-    float avgX2 = points[0].x();
-
-    float avgY1 = points[0].y();
-    float avgY2 = points[0].y();
-
-    for (int i=1; i<points.size(); ++i)
-    {
-        avgX1 = avgX1 * r1 + points[i].x() * (1 - r1);
-        avgY1 = avgY1 * r1 + points[i].y() * (1 - r1);
-
-        avgPoints1.push_back({avgX1, avgY1});
-
-    } for (int i=0; i<k1*2; ++i)
-    {
-        avgX1 = avgX1 * r1 + points[i].x() * (1 - r1);
-        avgY1 = avgY1 * r1 + points[i].y() * (1 - r1);
-
-        avgPoints1.push_back({avgX1, avgY1});
-
-        if (fabs(pointsToDist(avgPoints1[0], {avgX1, avgY1})) < 0.2) {  /////////////////////
-            break;
-        }
-    }
-
-    return avgPoints1;
 }
 
 std::vector<int> ArrowCorner::ransacToTerminal(const std::vector<Eigen::Vector2f>& points)
